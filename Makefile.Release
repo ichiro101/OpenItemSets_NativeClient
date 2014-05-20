@@ -11,19 +11,19 @@ MAKEFILE      = Makefile.Release
 
 CC            = cl
 CXX           = cl
-DEFINES       = -DUNICODE -DWIN32 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG
+DEFINES       = -DUNICODE -DWIN32 -DVERSION_MAJOR=0 -DVERSION_MINOR=0 -DVERSION_BUILD=1 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG
 CFLAGS        = -nologo -Zm200 -Zc:wchar_t -O2 -MD -W3 $(DEFINES)
 CXXFLAGS      = -nologo -Zm200 -Zc:wchar_t -O2 -MD -GR -W3 -w34100 -w34189 -EHsc $(DEFINES)
 INCPATH       = -I"..\..\..\Qt\5.2.1\msvc2012\include" -I"..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets" -I"..\..\..\Qt\5.2.1\msvc2012\include\QtGui" -I"..\..\..\Qt\5.2.1\msvc2012\include\QtANGLE" -I"..\..\..\Qt\5.2.1\msvc2012\include\QtCore" -I"release" -I"." -I"..\..\..\Qt\5.2.1\msvc2012\mkspecs\win32-msvc2012"
 LINKER        = link
-LFLAGS        = /NOLOGO /DYNAMICBASE /NXCOMPAT /INCREMENTAL:NO /SUBSYSTEM:WINDOWS "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'"
-LIBS          = qtmain.lib /LIBPATH:F:\Dev\Qt\5.2.1\msvc2012\lib F:\Dev\Qt\5.2.1\msvc2012\lib\Qt5Widgets.lib F:\Dev\Qt\5.2.1\msvc2012\lib\Qt5Gui.lib F:\Dev\Qt\5.2.1\msvc2012\lib\Qt5Core.lib libEGL.lib libGLESv2.lib gdi32.lib user32.lib 
+LFLAGS        = /NOLOGO /DYNAMICBASE /NXCOMPAT /INCREMENTAL:NO /SUBSYSTEM:WINDOWS "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" /VERSION:0.01
+LIBS          = qtmain.lib /LIBPATH:F:\Dev\Qt\5.2.1\msvc2012\lib F:\Dev\Qt\5.2.1\msvc2012\lib\Qt5Widgets.lib F:\Dev\Qt\5.2.1\msvc2012\lib\Qt5Gui.lib F:\Dev\Qt\5.2.1\msvc2012\lib\Qt5Core.lib libEGL.lib libGLESv2.lib gdi32.lib user32.lib release\OpenItemSets_resource.res 
 QMAKE         = F:\Dev\Qt\5.2.1\msvc2012\bin\qmake.exe
 IDC           = idc
 IDL           = midl
 ZIP           = zip -r -9
 DEF_FILE      = 
-RES_FILE      = 
+RES_FILE      = release\OpenItemSets_resource.res
 COPY          = copy /y
 SED           = $(QMAKE) -install sed
 COPY_FILE     = $(COPY)
@@ -85,26 +85,6 @@ DESTDIR_TARGET = release\OpenItemSets.exe
 	$<
 <<
 
-{release}.cpp{release\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
-	$<
-<<
-
-{release}.cc{release\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
-	$<
-<<
-
-{release}.cxx{release\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
-	$<
-<<
-
-{release}.c{release\}.obj::
-	$(CC) -c $(CFLAGS) $(INCPATH) -Forelease\ @<<
-	$<
-<<
-
 {src}.cpp{release\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
 	$<
@@ -125,16 +105,39 @@ DESTDIR_TARGET = release\OpenItemSets.exe
 	$<
 <<
 
+{release}.cpp{release\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
+	$<
+<<
+
+{release}.cc{release\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
+	$<
+<<
+
+{release}.cxx{release\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
+	$<
+<<
+
+{release}.c{release\}.obj::
+	$(CC) -c $(CFLAGS) $(INCPATH) -Forelease\ @<<
+	$<
+<<
+
 ####### Build rules
 
 first: all
 all: Makefile.Release $(DESTDIR_TARGET)
 
-$(DESTDIR_TARGET): ui_mainwindow.h ui_settingsdialog.h $(OBJECTS) 
+$(DESTDIR_TARGET): ui_mainwindow.h ui_settingsdialog.h $(OBJECTS) release\OpenItemSets_resource.res
 	$(LINKER) $(LFLAGS) /MANIFEST /MANIFESTFILE:release\OpenItemSets.exe.embed.manifest /OUT:$(DESTDIR_TARGET) @<<
 $(OBJECTS) $(LIBS)
 <<
 	mt.exe /nologo /manifest release\OpenItemSets.exe.embed.manifest /outputresource:$(DESTDIR_TARGET);1
+
+release\OpenItemSets_resource.res: OpenItemSets_resource.rc
+	rc $(DEFINES) -fo release\OpenItemSets_resource.res OpenItemSets_resource.rc
 
 qmake: FORCE
 	@$(QMAKE) -spec win32-msvc2012 CONFIG+=debug -o Makefile.Release OpenItemSets.pro
@@ -146,7 +149,8 @@ dist:
 
 clean: compiler_clean 
 	-$(DEL_FILE) release\main.obj release\mainwindow.obj release\settingsdialog.obj release\settings.obj release\moc_mainwindow.obj release\moc_settingsdialog.obj
-	-$(DEL_FILE) release\OpenItemSets.exp release\OpenItemSets.exe.embed.manifest
+	-$(DEL_FILE) release\OpenItemSets0.exp release\OpenItemSets.exe.embed.manifest
+	-$(DEL_FILE) release\OpenItemSets_resource.res
 
 distclean: clean
 	-$(DEL_FILE) $(DESTDIR_TARGET)
@@ -386,6 +390,8 @@ release\moc_settingsdialog.cpp: ..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QDi
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qfiledevice.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtGui\qvector2d.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtGui\qtouchdevice.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QMessageBox \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qmessagebox.h \
 		src\settingsdialog.h
 	F:\Dev\Qt\5.2.1\msvc2012\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 $(INCPATH) src\settingsdialog.h -o release\moc_settingsdialog.cpp
 
@@ -528,6 +534,8 @@ release\main.obj: src\main.cpp src\mainwindow.h \
 		src\settingsdialog.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QDialog \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qdialog.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QMessageBox \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qmessagebox.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QApplication \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qapplication.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qcoreapplication.h \
@@ -648,6 +656,12 @@ release\mainwindow.obj: src\mainwindow.cpp src\mainwindow.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtGui\qtouchdevice.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qtabwidget.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtGui\qicon.h \
+		src\settings.h \
+		src\settingsdialog.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QDialog \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qdialog.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QMessageBox \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qmessagebox.h \
 		ui_mainwindow.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QVariant \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QAction \
@@ -662,6 +676,11 @@ release\mainwindow.obj: src\mainwindow.cpp src\mainwindow.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtGui\qinputmethod.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QButtonGroup \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qbuttongroup.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QHBoxLayout \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qboxlayout.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qlayout.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qlayoutitem.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qgridlayout.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QHeaderView \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qheaderview.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qabstractitemview.h \
@@ -679,13 +698,18 @@ release\mainwindow.obj: src\mainwindow.cpp src\mainwindow.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qstyle.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qtabbar.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qrubberband.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QLabel \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qlabel.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QListView \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qlistview.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QMenu \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qmenu.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QMenuBar \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qmenubar.h \
-		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qmenu.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QSpacerItem \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QStatusBar \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qstatusbar.h \
-		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QToolBar \
-		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qtoolbar.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QVBoxLayout \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QWidget
 
 release\settingsdialog.obj: src\settingsdialog.cpp src\settingsdialog.h \
@@ -798,6 +822,9 @@ release\settingsdialog.obj: src\settingsdialog.cpp src\settingsdialog.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qfiledevice.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtGui\qvector2d.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtGui\qtouchdevice.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QMessageBox \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qmessagebox.h \
+		src\settings.h \
 		ui_settingsdialog.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QVariant \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QAction \
@@ -853,7 +880,7 @@ release\settingsdialog.obj: src\settingsdialog.cpp src\settingsdialog.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QSpacerItem \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QVBoxLayout
 
-release\settings.obj: src\settings.cpp 
+release\settings.obj: src\settings.cpp src\settings.h
 
 release\moc_mainwindow.obj: release\moc_mainwindow.cpp 
 

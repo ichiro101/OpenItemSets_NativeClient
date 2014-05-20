@@ -11,16 +11,9 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Settings</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>League of Legends Installation</string>
-     </property>
-    </widget>
-   </item>
    <item>
     <widget class="QLabel" name="label_2">
      <property name="text">
@@ -28,6 +21,13 @@
      </property>
      <property name="wordWrap">
       <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>League of Legends Installation Paths:</string>
      </property>
     </widget>
    </item>
@@ -50,14 +50,14 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="QPushButton" name="removeButton">
        <property name="text">
         <string>Remove from List</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="manualAddButton">
        <property name="text">
         <string>Manual Add</string>
        </property>
@@ -85,7 +85,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit"/>
+      <widget class="QLineEdit" name="usernameField"/>
      </item>
     </layout>
    </item>
@@ -105,14 +105,14 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_4">
+      <widget class="QPushButton" name="cancelButton">
        <property name="text">
         <string>Canel</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_3">
+      <widget class="QPushButton" name="okButton">
        <property name="text">
         <string>Ok</string>
        </property>

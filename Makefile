@@ -298,12 +298,12 @@ qmake_all: FORCE
 make_first: debug-make_first release-make_first FORCE
 all: debug-all release-all FORCE
 clean: debug-clean release-clean FORCE
-	-$(DEL_FILE) OpenItemSets.exp
-	-$(DEL_FILE) OpenItemSets.ilk
-	-$(DEL_FILE) OpenItemSets.idb
+	-$(DEL_FILE) OpenItemSets0.exp
+	-$(DEL_FILE) OpenItemSets0.ilk
+	-$(DEL_FILE) OpenItemSets0.idb
 distclean: debug-distclean release-distclean FORCE
 	-$(DEL_FILE) Makefile
-	-$(DEL_FILE) OpenItemSets.pdb
+	-$(DEL_FILE) OpenItemSets0.pdb
 
 debug-mocclean:
 	@set MAKEFLAGS=$(MAKEFLAGS)

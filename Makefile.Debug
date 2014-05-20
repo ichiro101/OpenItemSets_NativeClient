@@ -11,19 +11,19 @@ MAKEFILE      = Makefile.Debug
 
 CC            = cl
 CXX           = cl
-DEFINES       = -DUNICODE -DWIN32 -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE
-CFLAGS        = -nologo -Zm200 -Zc:wchar_t -Zi -MDd -W3 /Fddebug\OpenItemSets.pdb $(DEFINES)
-CXXFLAGS      = -nologo -Zm200 -Zc:wchar_t -Zi -MDd -GR -W3 -w34100 -w34189 -EHsc /Fddebug\OpenItemSets.pdb $(DEFINES)
+DEFINES       = -DUNICODE -DWIN32 -DVERSION_MAJOR=0 -DVERSION_MINOR=0 -DVERSION_BUILD=1 -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE
+CFLAGS        = -nologo -Zm200 -Zc:wchar_t -Zi -MDd -W3 /Fddebug\OpenItemSets0.pdb $(DEFINES)
+CXXFLAGS      = -nologo -Zm200 -Zc:wchar_t -Zi -MDd -GR -W3 -w34100 -w34189 -EHsc /Fddebug\OpenItemSets0.pdb $(DEFINES)
 INCPATH       = -I"..\..\..\Qt\5.2.1\msvc2012\include" -I"..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets" -I"..\..\..\Qt\5.2.1\msvc2012\include\QtGui" -I"..\..\..\Qt\5.2.1\msvc2012\include\QtANGLE" -I"..\..\..\Qt\5.2.1\msvc2012\include\QtCore" -I"debug" -I"." -I"..\..\..\Qt\5.2.1\msvc2012\mkspecs\win32-msvc2012"
 LINKER        = link
-LFLAGS        = /NOLOGO /DYNAMICBASE /NXCOMPAT /DEBUG /SUBSYSTEM:WINDOWS "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'"
-LIBS          = qtmaind.lib /LIBPATH:F:\Dev\Qt\5.2.1\msvc2012\lib F:\Dev\Qt\5.2.1\msvc2012\lib\Qt5Widgetsd.lib F:\Dev\Qt\5.2.1\msvc2012\lib\Qt5Guid.lib F:\Dev\Qt\5.2.1\msvc2012\lib\Qt5Cored.lib libEGLd.lib libGLESv2d.lib gdi32.lib user32.lib 
+LFLAGS        = /NOLOGO /DYNAMICBASE /NXCOMPAT /DEBUG /SUBSYSTEM:WINDOWS "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" /VERSION:0.01
+LIBS          = qtmaind.lib /LIBPATH:F:\Dev\Qt\5.2.1\msvc2012\lib F:\Dev\Qt\5.2.1\msvc2012\lib\Qt5Widgetsd.lib F:\Dev\Qt\5.2.1\msvc2012\lib\Qt5Guid.lib F:\Dev\Qt\5.2.1\msvc2012\lib\Qt5Cored.lib libEGLd.lib libGLESv2d.lib gdi32.lib user32.lib debug\OpenItemSets_resource.res 
 QMAKE         = F:\Dev\Qt\5.2.1\msvc2012\bin\qmake.exe
 IDC           = idc
 IDL           = midl
 ZIP           = zip -r -9
 DEF_FILE      = 
-RES_FILE      = 
+RES_FILE      = debug\OpenItemSets_resource.res
 COPY          = copy /y
 SED           = $(QMAKE) -install sed
 COPY_FILE     = $(COPY)
@@ -85,26 +85,6 @@ DESTDIR_TARGET = debug\OpenItemSets.exe
 	$<
 <<
 
-{debug}.cpp{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{debug}.cc{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{debug}.cxx{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{debug}.c{debug\}.obj::
-	$(CC) -c $(CFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
 {src}.cpp{debug\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
 	$<
@@ -125,12 +105,32 @@ DESTDIR_TARGET = debug\OpenItemSets.exe
 	$<
 <<
 
+{debug}.cpp{debug\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
+	$<
+<<
+
+{debug}.cc{debug\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
+	$<
+<<
+
+{debug}.cxx{debug\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
+	$<
+<<
+
+{debug}.c{debug\}.obj::
+	$(CC) -c $(CFLAGS) $(INCPATH) -Fodebug\ @<<
+	$<
+<<
+
 ####### Build rules
 
 first: all
 all: Makefile.Debug $(DESTDIR_TARGET)
 
-$(DESTDIR_TARGET): ui_mainwindow.h ui_settingsdialog.h $(OBJECTS) 
+$(DESTDIR_TARGET): ui_mainwindow.h ui_settingsdialog.h $(OBJECTS) debug\OpenItemSets_resource.res
 	echo 1 /* CREATEPROCESS_MANIFEST_RESOURCE_ID */ 24 /* RT_MANIFEST */ "debug\\OpenItemSets.exe.embed.manifest">debug\OpenItemSets.exe_manifest.rc
 	if not exist $(DESTDIR_TARGET) if exist debug\OpenItemSets.exe.embed.manifest del debug\OpenItemSets.exe.embed.manifest
 	if exist debug\OpenItemSets.exe.embed.manifest copy /Y debug\OpenItemSets.exe.embed.manifest debug\OpenItemSets.exe_manifest.bak
@@ -147,6 +147,9 @@ $(OBJECTS) $(LIBS) debug\OpenItemSets.exe_manifest.res
 <<
 	if exist debug\OpenItemSets.exe_manifest.bak del debug\OpenItemSets.exe_manifest.bak
 
+debug\OpenItemSets_resource.res: OpenItemSets_resource.rc
+	rc -D_DEBUG $(DEFINES) -fo debug\OpenItemSets_resource.res OpenItemSets_resource.rc
+
 qmake: FORCE
 	@$(QMAKE) -spec win32-msvc2012 CONFIG+=debug -o Makefile.Debug OpenItemSets.pro
 
@@ -157,10 +160,11 @@ dist:
 
 clean: compiler_clean 
 	-$(DEL_FILE) debug\main.obj debug\mainwindow.obj debug\settingsdialog.obj debug\settings.obj debug\moc_mainwindow.obj debug\moc_settingsdialog.obj
-	-$(DEL_FILE) debug\OpenItemSets.exp debug\OpenItemSets.ilk debug\OpenItemSets.idb debug\OpenItemSets.exe.embed.manifest debug\OpenItemSets.exe_manifest.rc debug\OpenItemSets.exe_manifest.res
+	-$(DEL_FILE) debug\OpenItemSets0.exp debug\OpenItemSets0.ilk debug\OpenItemSets0.idb debug\OpenItemSets.exe.embed.manifest debug\OpenItemSets.exe_manifest.rc debug\OpenItemSets.exe_manifest.res
+	-$(DEL_FILE) debug\OpenItemSets_resource.res
 
 distclean: clean
-	-$(DEL_FILE) debug\OpenItemSets.pdb
+	-$(DEL_FILE) debug\OpenItemSets0.pdb
 	-$(DEL_FILE) $(DESTDIR_TARGET)
 	-$(DEL_FILE) Makefile.Debug
 
@@ -398,6 +402,8 @@ debug\moc_settingsdialog.cpp: ..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QDial
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qfiledevice.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtGui\qvector2d.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtGui\qtouchdevice.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QMessageBox \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qmessagebox.h \
 		src\settingsdialog.h
 	F:\Dev\Qt\5.2.1\msvc2012\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 $(INCPATH) src\settingsdialog.h -o debug\moc_settingsdialog.cpp
 
@@ -540,6 +546,8 @@ debug\main.obj: src\main.cpp src\mainwindow.h \
 		src\settingsdialog.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QDialog \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qdialog.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QMessageBox \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qmessagebox.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QApplication \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qapplication.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qcoreapplication.h \
@@ -660,6 +668,12 @@ debug\mainwindow.obj: src\mainwindow.cpp src\mainwindow.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtGui\qtouchdevice.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qtabwidget.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtGui\qicon.h \
+		src\settings.h \
+		src\settingsdialog.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QDialog \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qdialog.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QMessageBox \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qmessagebox.h \
 		ui_mainwindow.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QVariant \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QAction \
@@ -674,6 +688,11 @@ debug\mainwindow.obj: src\mainwindow.cpp src\mainwindow.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtGui\qinputmethod.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QButtonGroup \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qbuttongroup.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QHBoxLayout \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qboxlayout.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qlayout.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qlayoutitem.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qgridlayout.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QHeaderView \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qheaderview.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qabstractitemview.h \
@@ -691,13 +710,18 @@ debug\mainwindow.obj: src\mainwindow.cpp src\mainwindow.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qstyle.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qtabbar.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qrubberband.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QLabel \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qlabel.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QListView \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qlistview.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QMenu \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qmenu.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QMenuBar \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qmenubar.h \
-		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qmenu.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QSpacerItem \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QStatusBar \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qstatusbar.h \
-		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QToolBar \
-		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qtoolbar.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QVBoxLayout \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QWidget
 
 debug\settingsdialog.obj: src\settingsdialog.cpp src\settingsdialog.h \
@@ -810,6 +834,9 @@ debug\settingsdialog.obj: src\settingsdialog.cpp src\settingsdialog.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qfiledevice.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtGui\qvector2d.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtGui\qtouchdevice.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QMessageBox \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qmessagebox.h \
+		src\settings.h \
 		ui_settingsdialog.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QVariant \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QAction \
@@ -865,7 +892,7 @@ debug\settingsdialog.obj: src\settingsdialog.cpp src\settingsdialog.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QSpacerItem \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QVBoxLayout
 
-debug\settings.obj: src\settings.cpp 
+debug\settings.obj: src\settings.cpp src\settings.h
 
 debug\moc_mainwindow.obj: debug\moc_mainwindow.cpp 
 
