@@ -1,6 +1,5 @@
-#include "includes/settings.h"
+#include "src/settings.h"
 
-// TODO: implement this
 bool Settings::hasSettings() {
   return false;
 }

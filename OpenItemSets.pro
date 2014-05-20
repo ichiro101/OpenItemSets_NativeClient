@@ -14,9 +14,12 @@ TEMPLATE = app
 
 SOURCES += src/main.cpp \
     src/mainwindow.cpp \
+    src/settingsdialog.cpp \
     src/settings.cpp
 
-HEADERS  +=  includes/mainwindow.h \
-    includes/settings.h
+HEADERS  +=  src/mainwindow.h \
+    src/settings.h \
+    src/settingsdialog.h
 
-FORMS    += forms/mainwindow.ui
+FORMS    += src/mainwindow.ui \
+    src/settingsdialog.ui
