@@ -34,6 +34,8 @@ private:
   // make sure the log widget don't get too big
   void cleanLogs();
 
+  void cleanUnusedFiles(std::vector<QString> itemSetList);
+
   Ui::MainWindow *ui;
 
   // given the item set in JSON, save it in the correct directory/directories

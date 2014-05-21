@@ -24,7 +24,7 @@ MainWindow::MainWindow(QWidget *parent) :
   QTimer* timer = new QTimer(this);
   connect(timer, SIGNAL(timeout()), this, SLOT(checkUpdates()));
   checkUpdates();
-  timer->start(10000);
+  timer->start(15000);
 }
 
 MainWindow::~MainWindow()
@@ -62,6 +62,10 @@ void MainWindow::checkUpdates() {
                             "Updates to item sets detected or settings changed: updating now...");
 
     auto subList = getUserSubscription();
+
+	// if a user unsubscribed from a file, make sure that file
+	// gets deleted
+	this->cleanUnusedFiles(subList);
     auto hasError = false;
 
     for (QString itemSetId : subList) {
@@ -135,6 +139,61 @@ bool MainWindow::saveItemSet(QString itemSetJson, QString itemSetId) {
   }
 
   return hasNoError;
+}
+
+void MainWindow::cleanUnusedFiles(std::vector<QString> itemSetList) {
+  QVector<QString> lolDirs = Settings::getInstance().getLoLDirs();
+
+  for (auto currentDir : lolDirs) {
+    QDir itemSetDir(currentDir + "/Config/Champions/");
+    auto entryList = itemSetDir.entryList();
+    
+    // iterating through every champion here
+    // we need to go through EVERY champion directory to look for
+    // files that are placed by Open Item Sets. If we find files with
+    // ids that are not in the current itemSetList, then
+    // we delete the file from the file system
+    for (QString entry : entryList) {
+      // we need to skip the "." and ".."
+      if (entry == "." || entry == "..") {
+        continue;
+      }
+
+      QDir entryDir(itemSetDir.absolutePath() + "/" + entry + "/Recommended/");
+
+      auto itemSetEntryList = entryDir.entryList();
+
+      for (QString itemSetEntry : itemSetEntryList) {
+        // we need to skip the "." and ".."
+        if (itemSetEntry == "." || itemSetEntry == "..") {
+          continue;
+        }
+
+        QFile itemSetFile(itemSetDir.absolutePath() + "/" + itemSetEntry);
+
+        if (itemSetEntry.startsWith("ois")) {
+          // we need to strip out .json part
+          itemSetEntry.chop(5);
+
+          // remove ois_ from the start
+          itemSetEntry.remove(0, 4);
+
+          // if we can't find itemSetEntry in the itemSetList, then the itemSetEntry
+          // should be removed
+          if (std::find(itemSetList.begin(), itemSetList.end(), itemSetEntry) == itemSetList.end()) {
+            auto tm1 = QTime::currentTime();
+
+            // remove the file from the file system
+            itemSetFile.remove();
+
+            QString logEntry = tm1.toString("[hh:mm:ss]")
+              + "Unsubscribed item set removed from " + entryDir.absolutePath();
+            ui->listWidget->addItem(logEntry);
+          }
+        }
+      }
+    }
+  }
 }
 
 void MainWindow::on_actionOpen_Settings_triggered()
