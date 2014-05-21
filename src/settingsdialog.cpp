@@ -30,6 +30,7 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
   }
 
   connect(ui->manualAddButton, SIGNAL(clicked()), this, SLOT(manualAdd()));
+  connect(ui->removeButton, SIGNAL(clicked()), this, SLOT(removeDirectory()));
 }
 
 SettingsDialog::~SettingsDialog()
@@ -108,6 +109,7 @@ void SettingsDialog::manualAdd() {
 
       // if it's not already in the list, then we should add it to the
       // listWidget
+      selectedFolder = processDirectory(selectedFolder);
       ui->listWidget->addItem(selectedFolder);
     } else {
       // if it's not a valid league of legends directory, then
@@ -120,6 +122,20 @@ void SettingsDialog::manualAdd() {
     }
   }
 
+}
+
+void SettingsDialog::removeDirectory() {
+  // see if there is a selected item
+  auto currentItems = ui->listWidget->selectedItems();
+  if (currentItems.count() > 0) {
+    delete currentItems.at(0);
+  } else {
+    QMessageBox messageDialog;
+    messageDialog.setText("You must select a directory before you can remove it from the list.");
+    messageDialog.setStandardButtons(QMessageBox::Ok);
+    messageDialog.setModal(true);
+    messageDialog.exec();
+  }
 }
 
 bool SettingsDialog::validateInput() {

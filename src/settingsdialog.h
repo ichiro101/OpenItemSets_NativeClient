@@ -32,6 +32,7 @@ public:
 
 public slots:
   void manualAdd();
+  void removeDirectory();
 
 private:
 
