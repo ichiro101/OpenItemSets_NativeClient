@@ -4,7 +4,11 @@
 #include <QString>
 #include <QDir>
 #include <QFile>
-#include <vector>
+#include <QVector>
+#include <QSettings>
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QJsonDocument>
 
 class Settings {
 public:
@@ -19,12 +23,16 @@ public:
   // getters and setters
   QString getUserId();
   QString getUsername();
+  QVector<QString> getLoLDirs();
+  QString getStateHash();
   void setUserId(QString id);
   void setUsername(QString username);
-
-  std::vector<QString> getLoLDirs();
-  QString getStateHash();
+  void setLolDirs(QVector<QString> lolDirs);
   void setStateHash(QString hashStr);
+
+  // reading and writing data to disk
+  bool readSettings();
+  bool writeSettings();
 
 private:
 
@@ -32,10 +40,6 @@ private:
   Settings(Settings const&); // don't implement
   void operator=(Settings const&); // don't implement
 
-
-  // internal methods for reading/writing data
-  bool readSettings();
-  void writeSettings();
 
 
   // internal helper methods
@@ -45,7 +49,7 @@ private:
   QString _username;
   QString _stateHash;
   bool _hasSettings;
-  std::vector<QString> _lolDirs;
+  QVector<QString> _lolDirs;
 };
 
 #endif // SETTINGS_H

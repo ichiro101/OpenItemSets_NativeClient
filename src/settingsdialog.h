@@ -29,6 +29,8 @@ public:
 
   // validates input, returns true if the input on the
   // forms are considered valid, false if they are not
+  // as a side effect, it will also set the userId and
+  // username into the Settings class
   bool validateInput();
 
 public slots:

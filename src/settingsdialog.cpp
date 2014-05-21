@@ -7,9 +7,9 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
 {
   ui->setupUi(this);
 
-  // we want to display a message to the user
-  // if they start up the program for the first time
   if (!Settings::getInstance().hasSettings()) {
+    // we want to display a message to the user
+    // if they start up the program for the first time
     QMessageBox msgBox;
 
     // set up the text and the buttons
@@ -22,13 +22,19 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
     msgBox.setModal(true);
     msgBox.exec();
 
+    // since it's our first time initializing, we should
+    // also scan the computer for existing League of Legends
+    // installations
     auto installations = scanInstallations();
 
     for (auto folder : installations) {
       ui->listWidget->addItem(folder);
     }
+  } else {
+    // TODO: read from Settings
   }
 
+  // add and remove directory events
   connect(ui->manualAddButton, SIGNAL(clicked()), this, SLOT(manualAdd()));
   connect(ui->removeButton, SIGNAL(clicked()), this, SLOT(removeDirectory()));
 }
@@ -43,10 +49,26 @@ void SettingsDialog::accept() {
   // check validity of input first
   auto validateResult = validateInput();
 
+
   if (validateResult) {
-    std::cout << "validate success" << std::endl;
-  } else {
-    std::cout << "validate fail" << std::endl;
+    // now we need to set the lolDirs in settings
+    QVector<QString> lolDirs;
+    for(int i = 0; i < ui->listWidget->count(); i++) {
+      auto dirname = ui->listWidget->itemAt(0, i)->text();
+      lolDirs.push_back(dirname);
+    }
+
+    Settings::getInstance().setLolDirs(lolDirs);
+
+    if (Settings::getInstance().writeSettings()) {
+      QDialog::accept();
+    } else {
+      QMessageBox messageBox;
+      messageBox.setText("Failed to save settings to file");
+      messageBox.setStandardButtons(QMessageBox::Ok);
+      messageBox.setModal(true);
+      messageBox.exec();
+    }
   }
 }
 
@@ -139,36 +161,46 @@ void SettingsDialog::removeDirectory() {
 }
 
 bool SettingsDialog::validateInput() {
+  // check if we at least one have directory in the widget
+  if (ui->listWidget->count() == 0) {
+    this->errors.push_back("You need to have at least one valid League of Legends directory on the list");
+  }
+
   // check if the username is valid
   QString username = ui->usernameField->text();
   QString userId = getUserId(username);
 
   if (userId.startsWith("error")) {
     // the error message is contained in the return message of getUserId()
-    this->errors.push_back(userId);
+    if (userId == "error: user not found") {
+      // put a more user friendly message
+      this->errors.push_back("The Open Item Sets Username/Email you have entered doesn't seem to be valid.");
+    } else {
+      // some other error happend
+      this->errors.push_back(userId);
+    }
   } else {
-    qDebug() << "userId: " << userId;
-  }
-
-  // check if we at least one have directory in the widget
-  if (ui->listWidget->count() == 0) {
-    this->errors.push_back("You need to have at least one valid League of Legends directory on the list");
+    // since the username and userId are valid, let's set them
+    // in our Settings class, which will be staged into a file
+    Settings::getInstance().setUserId(userId);
+    Settings::getInstance().setUsername(username);
   }
 
 
   // after we done validating, it's time to check if we have
   // errors from the validation
   if (this->errors.empty()) {
-
     // no errors found, return true
     return true;
   } else {
 
     // errors found, display all the errors we found to the user
     QMessageBox messageDialog;
-    for(auto errorMessage : this->errors) {
-      messageDialog.setText(errorMessage);
+    QString errorMessage = "";
+    for(auto errorMessageItem : this->errors) {
+      errorMessage += errorMessageItem + "\n";
     }
+    messageDialog.setText(errorMessage);
     messageDialog.setStandardButtons(QMessageBox::Ok);
     messageDialog.setModal(true);
     messageDialog.exec();
