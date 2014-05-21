@@ -34,36 +34,51 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::checkUpdates() {
-  // check the state hash
-  auto currentHash = getStateHash();
+  // this checkUpdates() requires internet connection, we may need to expect
+  // internet to fail, hence we are putting these code into a try { } block
+  // and try to catch it if Internet fails
+  try {
+    // check the state hash
+    auto currentHash = getStateHash();
 
-  if (currentHash == Settings::getInstance().getStateHash()) {
-    // nothing has been updated since our state hash
-    // matches
-    return;
-  }
-
-  auto tm1 = QTime::currentTime();
-
-  ui->listWidget->addItem(tm1.toString("[hh:mm:ss]") +
-                          "Updates to item sets detected: updating now...");
-
-  auto subList = getUserSubscription();
-  auto hasError = false;
-
-  for (QString itemSetId : subList) {
-    QString itemSetJson = getItemSet(itemSetId);
-    if(!this->saveItemSet(itemSetJson, itemSetId)) {
-      hasError = true;
+    if (currentHash == Settings::getInstance().getStateHash()) {
+      // nothing has been updated since our state hash
+      // matches
+      return;
     }
-  }
 
-  if(!hasError) {
-    // if everything proceeded without errors
-    Settings::getInstance().setStateHash(currentHash);
+    auto tm1 = QTime::currentTime();
 
-    // persist the state hash
-    Settings::getInstance().writeSettings();
+    ui->listWidget->addItem(tm1.toString("[hh:mm:ss]") +
+                            "Updates to item sets detected: updating now...");
+
+    auto subList = getUserSubscription();
+    auto hasError = false;
+
+    for (QString itemSetId : subList) {
+      QString itemSetJson = getItemSet(itemSetId);
+      if(!this->saveItemSet(itemSetJson, itemSetId)) {
+        hasError = true;
+      }
+    }
+
+    if(!hasError) {
+      // if everything proceeded without errors
+      Settings::getInstance().setStateHash(currentHash);
+
+      // persist the state hash
+      Settings::getInstance().writeSettings();
+    }
+  } catch (int i) {
+    if (i == NETWORK_EXCEPTION) {
+      auto tm1 = QTime::currentTime();
+      ui->listWidget->addItem(tm1.toString("[hh:mm:ss]") +
+                              "Network error occured while trying to contact Open Item Sets server (Internet Down?)");
+    } else {
+      auto tm1 = QTime::currentTime();
+      ui->listWidget->addItem(tm1.toString("[hh:mm:ss]") +
+                              "Error occured while trying to update");
+    }
   }
 }
 

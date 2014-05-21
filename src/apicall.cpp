@@ -54,8 +54,7 @@ static QString sendRequest(QString relativeUrl) {
   eventLoop.exec();
 
   if (reply->error() != QNetworkReply::NoError) {
-    throw "error: Error while making network request, please check your Internet connection"
-        ", alternatively Open Item Sets may also be offline";
+    throw NETWORK_EXCEPTION;
   }
 
   return QString(reply->readAll());

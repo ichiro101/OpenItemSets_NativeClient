@@ -13,6 +13,8 @@
 #include <vector>
 #include "settings.h"
 
+const int NETWORK_EXCEPTION = 10;
+
 QString getApiUrl();
 QString getUserId(QString username);
 std::vector<QString> getUserSubscription();
