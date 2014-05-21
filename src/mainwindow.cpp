@@ -169,7 +169,7 @@ void MainWindow::cleanUnusedFiles(std::vector<QString> itemSetList) {
           continue;
         }
 
-        QFile itemSetFile(itemSetDir.absolutePath() + "/" + itemSetEntry);
+        QFile itemSetFile(entryDir.absolutePath() + "/" + itemSetEntry);
 
         if (itemSetEntry.startsWith("ois")) {
           // we need to strip out .json part
