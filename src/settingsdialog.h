@@ -1,8 +1,16 @@
 #ifndef SETTINGSDIALOG_H
 #define SETTINGSDIALOG_H
 
+#include "settings.h"
+#include "ui_settingsdialog.h"
+#include "leaguedirectory.h"
+#include <cassert>
+#include <iostream>
+#include <vector>
+#include <QString>
 #include <QDialog>
 #include <QMessageBox>
+#include <QFileDialog>
 
 namespace Ui {
 class SettingsDialog;
@@ -22,8 +30,15 @@ public:
   // forms are considered valid, false if they are not
   bool validateInput();
 
+public slots:
+  void manualAdd();
+
 private:
+
   Ui::SettingsDialog *ui;
+
+  // errors
+  std::vector<QString> errors;
 };
 
 #endif // SETTINGSDIALOG_H

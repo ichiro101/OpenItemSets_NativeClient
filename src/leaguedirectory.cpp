@@ -1,7 +1,5 @@
 #include "leaguedirectory.h"
 
-#include <iostream>
-
 static std::vector<QString> scanWindowsInstallations();
 
 std::vector<QString> scanInstallations() {
@@ -53,6 +51,10 @@ QString processDirectory(QString path) {
     // to remove "/RADS" from the string
     path.chop(5);
   }
+
+  // format the path
+  QDir dir(path);
+  path = dir.absolutePath();
 
   return path;
 }

@@ -1,10 +1,5 @@
 #include "settingsdialog.h"
-#include "settings.h"
-#include "ui_settingsdialog.h"
-#include "leaguedirectory.h"
-#include <cassert>
-#include <cstdlib>
-#include <iostream>
+#include <QDebug>
 
 SettingsDialog::SettingsDialog(QWidget *parent) :
   QDialog(parent),
@@ -33,6 +28,8 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
       ui->listWidget->addItem(folder);
     }
   }
+
+  connect(ui->manualAddButton, SIGNAL(clicked()), this, SLOT(manualAdd()));
 }
 
 SettingsDialog::~SettingsDialog()
@@ -79,6 +76,50 @@ void SettingsDialog::reject() {
       break;
     }
   }
+}
+
+void SettingsDialog::manualAdd() {
+  QFileDialog dialog;
+  dialog.setFileMode(QFileDialog::Directory);
+  dialog.setOption(QFileDialog::ShowDirsOnly);
+
+  dialog.setModal(true);
+  if (dialog.exec()) {
+    auto selectedFolder = dialog.selectedFiles().at(0);
+
+    if (isValidLeagueDirectory(selectedFolder)) {
+      // if it's a valid league of legends directory, then
+      // add it to the list
+
+      // first check if the item is already in the list
+      for(int i = 0; i < ui->listWidget->count(); i++) {
+        if (ui->listWidget->itemAt(0, i)->text() == selectedFolder) {
+
+          // if it's already in the list, tell the user that it's
+          // already in the list
+          QMessageBox messageDialog;
+          messageDialog.setText("This directory is already in the list");
+          messageDialog.setStandardButtons(QMessageBox::Ok);
+          messageDialog.setModal(true);
+          messageDialog.exec();
+          return;
+        }
+      }
+
+      // if it's not already in the list, then we should add it to the
+      // listWidget
+      ui->listWidget->addItem(selectedFolder);
+    } else {
+      // if it's not a valid league of legends directory, then
+      // we show a dialog to the user
+      QMessageBox messageDialog;
+      messageDialog.setText("This does not look like a valid League of Legends directory");
+      messageDialog.setStandardButtons(QMessageBox::Ok);
+      messageDialog.setModal(true);
+      messageDialog.exec();
+    }
+  }
+
 }
 
 bool SettingsDialog::validateInput() {

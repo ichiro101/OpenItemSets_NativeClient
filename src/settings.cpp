@@ -1,10 +1,5 @@
 #include "src/settings.h"
 
-// for debuggin
-#ifdef QT_DEBUG
-#include <iostream>
-#endif
-
 Settings::Settings() {
   QFile jsonFile(this->settingsFile());
 
