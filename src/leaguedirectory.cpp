@@ -23,11 +23,29 @@ std::vector<QString> scanWindowsInstallations() {
   QString folder = settings.value("LocalRootFolder").toString();
 
   if (folder != "") {
-    folder = processDirectory(folder);
-    s.push_back(folder);
+    if (isValidLeagueDirectory(folder)) {
+      folder = processDirectory(folder);
+      s.push_back(folder);
+    }
   }
 
   return s;
+}
+
+bool isValidLeagueDirectory(QString path) {
+  path = processDirectory(path);
+  QDir dirToLeague(path);
+
+  // check if config/champions is there
+  if (dirToLeague.cd("Config")) {
+    if (dirToLeague.cd("Champions")) {
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    return false;
+  }
 }
 
 QString processDirectory(QString path) {

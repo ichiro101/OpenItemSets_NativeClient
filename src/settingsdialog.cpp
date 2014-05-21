@@ -4,6 +4,7 @@
 #include "leaguedirectory.h"
 #include <cassert>
 #include <cstdlib>
+#include <iostream>
 
 SettingsDialog::SettingsDialog(QWidget *parent) :
   QDialog(parent),
@@ -34,8 +35,21 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
   }
 }
 
-void SettingsDialog::accept() {
+SettingsDialog::~SettingsDialog()
+{
+  delete ui;
+}
 
+
+void SettingsDialog::accept() {
+  // check validity of input first
+  auto validateResult = validateInput();
+
+  if (validateResult) {
+    std::cout << "validate success" << std::endl;
+  } else {
+    std::cout << "validate fail" << std::endl;
+  }
 }
 
 void SettingsDialog::reject() {
@@ -67,7 +81,7 @@ void SettingsDialog::reject() {
   }
 }
 
-SettingsDialog::~SettingsDialog()
-{
-  delete ui;
+bool SettingsDialog::validateInput() {
+  // code to validate input here...
+  return false;
 }

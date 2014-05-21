@@ -1,6 +1,7 @@
 #ifndef LEAGUEDIRECTORY_H
 #define LEAGUEDIRECTORY_H
 
+#include <QDir>
 #include <QString>
 #include <QSettings>
 #include <vector>
@@ -15,7 +16,7 @@
 std::vector<QString> scanInstallations();
 
 // check if the league directory is valid
-bool isValidLeagueDirectory();
+bool isValidLeagueDirectory(QString path);
 
 // process the path into a directory path that we can easily use
 // for the purpose of this application

@@ -18,6 +18,10 @@ public:
   void accept();
   void reject();
 
+  // validates input, returns true if the input on the
+  // forms are considered valid, false if they are not
+  bool validateInput();
+
 private:
   Ui::SettingsDialog *ui;
 };
