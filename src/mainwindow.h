@@ -6,6 +6,7 @@
 #include <QTimer>
 #include <QJsonObject>
 #include <QJsonDocument>
+#include <QSystemTrayIcon>
 
 namespace Ui {
 class MainWindow;
@@ -19,6 +20,7 @@ public:
   explicit MainWindow(QWidget *parent = 0);
   ~MainWindow();
 
+
 private slots:
   void on_actionOpen_Settings_triggered();
 
@@ -27,6 +29,9 @@ private slots:
 
 
 private:
+  // make sure the log widget don't get too big
+  void cleanLogs();
+
   Ui::MainWindow *ui;
 
   // given the item set in JSON, save it in the correct directory/directories

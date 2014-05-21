@@ -3,7 +3,6 @@
 #include "src/settingsdialog.h"
 #include "ui_mainwindow.h"
 #include <cstdlib>
-#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
   QMainWindow(parent),
@@ -33,7 +32,16 @@ MainWindow::~MainWindow()
   delete ui;
 }
 
+void MainWindow::cleanLogs() {
+  auto listWidget = ui->listWidget;
+  while (listWidget->count() > 50) {
+    delete listWidget->itemAt(0, 0);
+  }
+}
+
 void MainWindow::checkUpdates() {
+  cleanLogs();
+
   // this checkUpdates() requires internet connection, we may need to expect
   // internet to fail, hence we are putting these code into a try { } block
   // and try to catch it if Internet fails
@@ -80,6 +88,9 @@ void MainWindow::checkUpdates() {
                               "Error occured while trying to update");
     }
   }
+
+  // make sure the user gets to see the updated logs
+  ui->listWidget->scrollToBottom();
 }
 
 bool MainWindow::saveItemSet(QString itemSetJson, QString itemSetId) {
@@ -99,7 +110,7 @@ bool MainWindow::saveItemSet(QString itemSetJson, QString itemSetId) {
 
     QDir itemSetDir(currentDir + "/Config/Champions/" + champion + "/Recommended");
     if (!itemSetDir.exists()) {
-        itemSetDir.mkpath(".");
+      itemSetDir.mkpath(".");
     }
 
     QString path = itemSetDir.path() + "/ois_" + itemSetId + ".json";
@@ -134,3 +145,4 @@ void MainWindow::on_actionExit_triggered()
 {
   QApplication::exit();
 }
+
