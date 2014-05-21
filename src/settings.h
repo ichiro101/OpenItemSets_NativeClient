@@ -15,8 +15,13 @@ public:
   }
 
   bool hasSettings();
+
+  // getters and setters
   QString getUserId();
   QString getUsername();
+  void setUserId(QString id);
+  void setUsername(QString username);
+
   std::vector<QString> getLoLDirs();
   QString getStateHash();
   void setStateHash(QString hashStr);

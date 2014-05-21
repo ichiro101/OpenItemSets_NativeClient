@@ -150,12 +150,17 @@ bool SettingsDialog::validateInput() {
     qDebug() << "userId: " << userId;
   }
 
+  // check if we at least one have directory in the widget
+  if (ui->listWidget->count() == 0) {
+    this->errors.push_back("You need to have at least one valid League of Legends directory on the list");
+  }
+
 
   // after we done validating, it's time to check if we have
   // errors from the validation
   if (this->errors.empty()) {
 
-    // no erros found, return true
+    // no errors found, return true
     return true;
   } else {
 

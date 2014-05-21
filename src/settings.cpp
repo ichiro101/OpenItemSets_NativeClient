@@ -21,3 +21,19 @@ QString Settings::settingsFile() {
 bool Settings::hasSettings() {
   return this->_hasSettings;
 }
+
+void Settings::setUserId(QString userId) {
+  this->_userId = userId;
+}
+
+QString Settings::getUserId() {
+  return this->_userId;
+}
+
+void Settings::setUsername(QString username) {
+  this->_username = username;
+}
+
+QString Settings::getUsername() {
+  return this->_username;
+}
