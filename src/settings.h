@@ -18,6 +18,7 @@ public:
     return instance;
   }
 
+  bool settingsChanged;
   bool hasSettings();
 
   // getters and setters

@@ -24,7 +24,7 @@ MainWindow::MainWindow(QWidget *parent) :
   QTimer* timer = new QTimer(this);
   connect(timer, SIGNAL(timeout()), this, SLOT(checkUpdates()));
   checkUpdates();
-  timer->start(30000);
+  timer->start(10000);
 }
 
 MainWindow::~MainWindow()
@@ -49,7 +49,8 @@ void MainWindow::checkUpdates() {
     // check the state hash
     auto currentHash = getStateHash();
 
-    if (currentHash == Settings::getInstance().getStateHash()) {
+    if (currentHash == Settings::getInstance().getStateHash()
+		&& Settings::getInstance().settingsChanged == false) {
       // nothing has been updated since our state hash
       // matches
       return;
@@ -58,7 +59,7 @@ void MainWindow::checkUpdates() {
     auto tm1 = QTime::currentTime();
 
     ui->listWidget->addItem(tm1.toString("[hh:mm:ss]") +
-                            "Updates to item sets detected: updating now...");
+                            "Updates to item sets detected or settings changed: updating now...");
 
     auto subList = getUserSubscription();
     auto hasError = false;
@@ -76,6 +77,7 @@ void MainWindow::checkUpdates() {
 
       // persist the state hash
       Settings::getInstance().writeSettings();
+	  Settings::getInstance().settingsChanged = false;
     }
   } catch (int i) {
     if (i == NETWORK_EXCEPTION) {

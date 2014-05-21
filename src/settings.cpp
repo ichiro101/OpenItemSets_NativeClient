@@ -2,6 +2,7 @@
 
 Settings::Settings() {
   QFile file(this->settingsFile());
+  settingsChanged = false;
 
   if (file.exists()) {
     // if we have settings file, then set this to true
@@ -110,5 +111,8 @@ bool Settings::writeSettings() {
   file.write(saveDoc.toJson());
 
   this->_hasSettings = true;
+
+  // settings are changed since we are writing this to file
+  this->settingsChanged = true;
   return true;
 }
