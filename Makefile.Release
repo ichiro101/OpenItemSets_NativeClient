@@ -46,12 +46,14 @@ OBJECTS_DIR   = release
 SOURCES       = src\main.cpp \
 		src\mainwindow.cpp \
 		src\settingsdialog.cpp \
-		src\settings.cpp release\moc_mainwindow.cpp \
+		src\settings.cpp \
+		src\leaguedirectory.cpp release\moc_mainwindow.cpp \
 		release\moc_settingsdialog.cpp
 OBJECTS       = release\main.obj \
 		release\mainwindow.obj \
 		release\settingsdialog.obj \
 		release\settings.obj \
+		release\leaguedirectory.obj \
 		release\moc_mainwindow.obj \
 		release\moc_settingsdialog.obj
 
@@ -64,6 +66,26 @@ DESTDIR_TARGET = release\OpenItemSets.exe
 ####### Implicit rules
 
 .SUFFIXES: .c .cpp .cc .cxx
+
+{release}.cpp{release\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
+	$<
+<<
+
+{release}.cc{release\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
+	$<
+<<
+
+{release}.cxx{release\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
+	$<
+<<
+
+{release}.c{release\}.obj::
+	$(CC) -c $(CFLAGS) $(INCPATH) -Forelease\ @<<
+	$<
+<<
 
 {.}.cpp{release\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
@@ -105,26 +127,6 @@ DESTDIR_TARGET = release\OpenItemSets.exe
 	$<
 <<
 
-{release}.cpp{release\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
-	$<
-<<
-
-{release}.cc{release\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
-	$<
-<<
-
-{release}.cxx{release\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
-	$<
-<<
-
-{release}.c{release\}.obj::
-	$(CC) -c $(CFLAGS) $(INCPATH) -Forelease\ @<<
-	$<
-<<
-
 ####### Build rules
 
 first: all
@@ -148,7 +150,7 @@ dist:
 	$(ZIP) OpenItemSets.zip $(SOURCES) $(DIST) OpenItemSets.pro ..\..\..\Qt\5.2.1\msvc2012\mkspecs\features\spec_pre.prf ..\..\..\Qt\5.2.1\msvc2012\mkspecs\common\shell-win32.conf ..\..\..\Qt\5.2.1\msvc2012\mkspecs\qconfig.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_axbase.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_axbase_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_axcontainer.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_axcontainer_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_axserver.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_axserver_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_bluetooth.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_bluetooth_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_bootstrap_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_clucene_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_concurrent.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_concurrent_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_core.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_core_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_declarative.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_declarative_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_designer.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_designer_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_designercomponents_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_gui.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_gui_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_help.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_help_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_multimedia.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_multimedia_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_multimediawidgets.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_multimediawidgets_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_network.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_network_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_nfc.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_nfc_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_opengl.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_opengl_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_openglextensions.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_openglextensions_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_platformsupport_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_positioning.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_positioning_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_printsupport.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_printsupport_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_qml.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_qml_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_qmldevtools_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_qmltest.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_qmltest_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_quick.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_quick_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_quickparticles_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_script.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_script_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_scripttools.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_scripttools_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_sensors.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_sensors_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_serialport.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_serialport_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_sql.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_sql_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_svg.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_svg_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_testlib.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_testlib_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_uitools.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_uitools_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_webkit.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_webkit_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_webkitwidgets.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_webkitwidgets_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_widgets.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_widgets_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_winextras.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_winextras_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_xml.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_xml_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_xmlpatterns.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\modules\qt_lib_xmlpatterns_private.pri ..\..\..\Qt\5.2.1\msvc2012\mkspecs\features\qt_functions.prf ..\..\..\Qt\5.2.1\msvc2012\mkspecs\features\qt_config.prf ..\..\..\Qt\5.2.1\msvc2012\mkspecs\win32-msvc2012\qmake.conf ..\..\..\Qt\5.2.1\msvc2012\mkspecs\features\spec_post.prf ..\..\..\Qt\5.2.1\msvc2012\mkspecs\features\exclusive_builds.prf ..\..\..\Qt\5.2.1\msvc2012\mkspecs\features\default_pre.prf ..\..\..\Qt\5.2.1\msvc2012\mkspecs\features\win32\default_pre.prf ..\..\..\Qt\5.2.1\msvc2012\mkspecs\features\resolve_config.prf ..\..\..\Qt\5.2.1\msvc2012\mkspecs\features\exclusive_builds_post.prf ..\..\..\Qt\5.2.1\msvc2012\mkspecs\features\default_post.prf ..\..\..\Qt\5.2.1\msvc2012\mkspecs\features\build_pass.prf ..\..\..\Qt\5.2.1\msvc2012\mkspecs\features\win32\rtti.prf ..\..\..\Qt\5.2.1\msvc2012\mkspecs\features\warn_on.prf ..\..\..\Qt\5.2.1\msvc2012\mkspecs\features\qt.prf ..\..\..\Qt\5.2.1\msvc2012\mkspecs\features\resources.prf ..\..\..\Qt\5.2.1\msvc2012\mkspecs\features\moc.prf ..\..\..\Qt\5.2.1\msvc2012\mkspecs\features\win32\opengl.prf ..\..\..\Qt\5.2.1\msvc2012\mkspecs\features\uic.prf ..\..\..\Qt\5.2.1\msvc2012\mkspecs\features\win32\windows.prf ..\..\..\Qt\5.2.1\msvc2012\mkspecs\features\testcase_targets.prf ..\..\..\Qt\5.2.1\msvc2012\mkspecs\features\exceptions.prf ..\..\..\Qt\5.2.1\msvc2012\mkspecs\features\yacc.prf ..\..\..\Qt\5.2.1\msvc2012\mkspecs\features\lex.prf OpenItemSets.pro F:/Dev/Qt/5.2.1/msvc2012/lib/Qt5Widgets.prl F:/Dev/Qt/5.2.1/msvc2012/lib/Qt5Gui.prl F:/Dev/Qt/5.2.1/msvc2012/lib/Qt5Core.prl F:/Dev/Qt/5.2.1/msvc2012/lib/libEGL.prl F:/Dev/Qt/5.2.1/msvc2012/lib/libGLESv2.prl  RESOURCES HEADERS SOURCES OBJECTIVE_SOURCES FORMS YACCSOURCES YACCSOURCES LEXSOURCES 
 
 clean: compiler_clean 
-	-$(DEL_FILE) release\main.obj release\mainwindow.obj release\settingsdialog.obj release\settings.obj release\moc_mainwindow.obj release\moc_settingsdialog.obj
+	-$(DEL_FILE) release\main.obj release\mainwindow.obj release\settingsdialog.obj release\settings.obj release\leaguedirectory.obj release\moc_mainwindow.obj release\moc_settingsdialog.obj
 	-$(DEL_FILE) release\OpenItemSets0.exp release\OpenItemSets.exe.embed.manifest
 	-$(DEL_FILE) release\OpenItemSets_resource.res
 
@@ -531,6 +533,11 @@ release\main.obj: src\main.cpp src\mainwindow.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qtabwidget.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtGui\qicon.h \
 		src\settings.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QString \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QDir \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qdir.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qfileinfo.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QFile \
 		src\settingsdialog.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QDialog \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qdialog.h \
@@ -657,6 +664,11 @@ release\mainwindow.obj: src\mainwindow.cpp src\mainwindow.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qtabwidget.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtGui\qicon.h \
 		src\settings.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QString \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QDir \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qdir.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qfileinfo.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QFile \
 		src\settingsdialog.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QDialog \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qdialog.h \
@@ -825,6 +837,11 @@ release\settingsdialog.obj: src\settingsdialog.cpp src\settingsdialog.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QMessageBox \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qmessagebox.h \
 		src\settings.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QString \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QDir \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qdir.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qfileinfo.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QFile \
 		ui_settingsdialog.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QVariant \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QAction \
@@ -878,9 +895,126 @@ release\settingsdialog.obj: src\settingsdialog.cpp src\settingsdialog.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qpushbutton.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qabstractbutton.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QSpacerItem \
-		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QVBoxLayout
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QVBoxLayout \
+		src\leaguedirectory.h
 
-release\settings.obj: src\settings.cpp src\settings.h
+release\settings.obj: src\settings.cpp src\settings.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QString \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qstring.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qchar.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qglobal.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qconfig.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qfeatures.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qsystemdetection.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qprocessordetection.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qcompilerdetection.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qglobalstatic.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qatomic.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qbasicatomic.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qatomic_bootstrap.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qgenericatomic.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qatomic_msvc.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qatomic_integrity.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qoldbasicatomic.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qatomic_vxworks.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qatomic_power.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qatomic_alpha.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qatomic_armv7.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qatomic_armv6.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qatomic_armv5.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qatomic_bfin.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qatomic_ia64.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qatomic_mips.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qatomic_s390.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qatomic_sh4a.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qatomic_sparc.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qatomic_x86.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qatomic_cxx11.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qatomic_gcc.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qatomic_unix.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qmutex.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qlogging.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qflags.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qtypeinfo.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qtypetraits.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qsysinfo.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qbytearray.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qrefcount.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qnamespace.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qarraydata.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qstringbuilder.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QDir \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qdir.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qfileinfo.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qfile.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qfiledevice.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qiodevice.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qobject.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qobjectdefs.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qobjectdefs_impl.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qlist.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qalgorithms.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qiterator.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qcoreevent.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qscopedpointer.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qmetatype.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qvarlengtharray.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qcontainerfwd.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qisenum.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qobject_impl.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qshareddata.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qstringlist.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qdatastream.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qpair.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qregexp.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qstringmatcher.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QFile
+
+release\leaguedirectory.obj: src\leaguedirectory.cpp src\leaguedirectory.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QString \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qstring.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qchar.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qglobal.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qconfig.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qfeatures.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qsystemdetection.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qprocessordetection.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qcompilerdetection.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qglobalstatic.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qatomic.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qbasicatomic.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qatomic_bootstrap.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qgenericatomic.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qatomic_msvc.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qatomic_integrity.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qoldbasicatomic.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qatomic_vxworks.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qatomic_power.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qatomic_alpha.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qatomic_armv7.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qatomic_armv6.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qatomic_armv5.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qatomic_bfin.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qatomic_ia64.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qatomic_mips.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qatomic_s390.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qatomic_sh4a.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qatomic_sparc.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qatomic_x86.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qatomic_cxx11.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qatomic_gcc.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qatomic_unix.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qmutex.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qlogging.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qflags.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qtypeinfo.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qtypetraits.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qsysinfo.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qbytearray.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qrefcount.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qnamespace.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qarraydata.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qstringbuilder.h
 
 release\moc_mainwindow.obj: release\moc_mainwindow.cpp 
 

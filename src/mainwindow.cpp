@@ -2,6 +2,7 @@
 #include "src/settings.h"
 #include "src/settingsdialog.h"
 #include "ui_mainwindow.h"
+#include <cstdlib>
 
 MainWindow::MainWindow(QWidget *parent) :
   QMainWindow(parent),

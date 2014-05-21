@@ -1,6 +1,7 @@
 #include "settingsdialog.h"
 #include "settings.h"
 #include "ui_settingsdialog.h"
+#include "leaguedirectory.h"
 #include <cassert>
 #include <cstdlib>
 
@@ -24,6 +25,12 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
     // display the message box
     msgBox.setModal(true);
     msgBox.exec();
+
+    auto installations = scanInstallations();
+
+    for (auto folder : installations) {
+      ui->listWidget->addItem(folder);
+    }
   }
 }
 

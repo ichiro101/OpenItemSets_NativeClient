@@ -27,11 +27,13 @@ VERSION = $${VERSION_MAJOR}.$${VERSION_MINOR}.$${VERSION_BUILD}
 SOURCES += src/main.cpp \
     src/mainwindow.cpp \
     src/settingsdialog.cpp \
-    src/settings.cpp
+    src/settings.cpp \
+    src/leaguedirectory.cpp
 
 HEADERS  +=  src/mainwindow.h \
     src/settings.h \
-    src/settingsdialog.h
+    src/settingsdialog.h \
+    src/leaguedirectory.h
 
 FORMS    += src/mainwindow.ui \
     src/settingsdialog.ui
