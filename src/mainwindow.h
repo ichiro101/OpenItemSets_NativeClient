@@ -28,6 +28,8 @@ private slots:
   void checkUpdates();
 
 
+  void on_actionAbout_triggered();
+
 private:
   // make sure the log widget don't get too big
   void cleanLogs();

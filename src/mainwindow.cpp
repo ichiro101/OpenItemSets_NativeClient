@@ -146,3 +146,18 @@ void MainWindow::on_actionExit_triggered()
   QApplication::exit();
 }
 
+
+void MainWindow::on_actionAbout_triggered()
+{
+  QMessageBox aboutBox;
+  QString version = QString::number(VERSION_MAJOR)
+      + "." + QString::number(VERSION_MINOR)
+      + "." + QString::number(VERSION_BUILD);
+  QString informativeText = "Version: " + version + "\n";
+
+  aboutBox.setText("Open Item Sets");
+  aboutBox.setInformativeText(informativeText);
+  aboutBox.setStandardButtons(QMessageBox::Ok);
+  aboutBox.setModal(true);
+  aboutBox.exec();
+}

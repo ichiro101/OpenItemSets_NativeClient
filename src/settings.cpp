@@ -108,5 +108,7 @@ bool Settings::writeSettings() {
   settingsObject["username"] = this->getUsername();
   QJsonDocument saveDoc(settingsObject);
   file.write(saveDoc.toJson());
+
+  this->_hasSettings = true;
   return true;
 }

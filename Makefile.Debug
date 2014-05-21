@@ -89,26 +89,6 @@ DESTDIR_TARGET = debug\OpenItemSets.exe
 	$<
 <<
 
-{src}.cpp{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{src}.cc{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{src}.cxx{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{src}.c{debug\}.obj::
-	$(CC) -c $(CFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
 {.}.cpp{debug\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
 	$<
@@ -125,6 +105,26 @@ DESTDIR_TARGET = debug\OpenItemSets.exe
 <<
 
 {.}.c{debug\}.obj::
+	$(CC) -c $(CFLAGS) $(INCPATH) -Fodebug\ @<<
+	$<
+<<
+
+{src}.cpp{debug\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
+	$<
+<<
+
+{src}.cc{debug\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
+	$<
+<<
+
+{src}.cxx{debug\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
+	$<
+<<
+
+{src}.c{debug\}.obj::
 	$(CC) -c $(CFLAGS) $(INCPATH) -Fodebug\ @<<
 	$<
 <<
@@ -155,7 +155,7 @@ debug\OpenItemSets_resource.res: OpenItemSets_resource.rc
 	rc -D_DEBUG $(DEFINES) -fo debug\OpenItemSets_resource.res OpenItemSets_resource.rc
 
 qmake: FORCE
-	@$(QMAKE) -spec win32-msvc2012 CONFIG+=debug -o Makefile.Debug OpenItemSets.pro
+	@$(QMAKE) -spec win32-msvc2012 -o Makefile.Debug OpenItemSets.pro
 
 qmake_all: FORCE
 
@@ -294,6 +294,18 @@ debug\moc_mainwindow.cpp: ..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QMainWind
 		..\..\..\Qt\5.2.1\msvc2012\include\QtGui\qtouchdevice.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qtabwidget.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtGui\qicon.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QTime \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qdatetime.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QTimer \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qtimer.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qbasictimer.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QJsonObject \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qjsonobject.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qjsonvalue.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QJsonDocument \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qjsondocument.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QSystemTrayIcon \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qsystemtrayicon.h \
 		src\mainwindow.h
 	F:\Dev\Qt\5.2.1\msvc2012\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 $(INCPATH) src\mainwindow.h -o debug\moc_mainwindow.cpp
 
@@ -401,6 +413,11 @@ debug\moc_settingsdialog.cpp: src\apicall.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QUrlQuery \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QEventLoop \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qeventloop.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QJsonArray \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qjsonarray.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qjsonvalue.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QJsonDocument \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qjsondocument.h \
 		src\settings.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QDir \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qdir.h \
@@ -408,6 +425,11 @@ debug\moc_settingsdialog.cpp: src\apicall.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qfile.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qfiledevice.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QFile \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QVector \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QSettings \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qsettings.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QJsonObject \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qjsonobject.h \
 		ui_settingsdialog.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QAction \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qaction.h \
@@ -491,8 +513,6 @@ debug\moc_settingsdialog.cpp: src\apicall.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QSpacerItem \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QVBoxLayout \
 		src\leaguedirectory.h \
-		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QSettings \
-		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qsettings.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QMessageBox \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qmessagebox.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QFileDialog \
@@ -635,12 +655,29 @@ debug\main.obj: src\main.cpp src\mainwindow.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtGui\qtouchdevice.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qtabwidget.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtGui\qicon.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QTime \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qdatetime.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QTimer \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qtimer.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qbasictimer.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QJsonObject \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qjsonobject.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qjsonvalue.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QJsonDocument \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qjsondocument.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QSystemTrayIcon \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qsystemtrayicon.h \
 		src\settings.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QString \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QDir \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qdir.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qfileinfo.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QFile \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QVector \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QSettings \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qsettings.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QJsonArray \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qjsonarray.h \
 		src\settingsdialog.h \
 		src\apicall.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtNetwork\QNetworkAccessManager \
@@ -654,7 +691,6 @@ debug\main.obj: src\main.cpp src\mainwindow.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtNetwork\qsslerror.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtNetwork\qsslcertificate.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qcryptographichash.h \
-		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qdatetime.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtNetwork\qssl.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QFlags \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtNetwork\QNetworkRequest \
@@ -721,8 +757,6 @@ debug\main.obj: src\main.cpp src\mainwindow.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QSpacerItem \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QVBoxLayout \
 		src\leaguedirectory.h \
-		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QSettings \
-		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qsettings.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QMessageBox \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qmessagebox.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QFileDialog \
@@ -840,12 +874,29 @@ debug\mainwindow.obj: src\mainwindow.cpp src\mainwindow.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtGui\qtouchdevice.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qtabwidget.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtGui\qicon.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QTime \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qdatetime.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QTimer \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qtimer.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qbasictimer.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QJsonObject \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qjsonobject.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qjsonvalue.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QJsonDocument \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qjsondocument.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QSystemTrayIcon \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qsystemtrayicon.h \
 		src\settings.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QString \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QDir \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qdir.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qfileinfo.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QFile \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QVector \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QSettings \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qsettings.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QJsonArray \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qjsonarray.h \
 		src\settingsdialog.h \
 		src\apicall.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtNetwork\QNetworkAccessManager \
@@ -859,7 +910,6 @@ debug\mainwindow.obj: src\mainwindow.cpp src\mainwindow.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtNetwork\qsslerror.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtNetwork\qsslcertificate.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qcryptographichash.h \
-		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qdatetime.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtNetwork\qssl.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QFlags \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtNetwork\QNetworkRequest \
@@ -926,14 +976,11 @@ debug\mainwindow.obj: src\mainwindow.cpp src\mainwindow.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QSpacerItem \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QVBoxLayout \
 		src\leaguedirectory.h \
-		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QSettings \
-		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qsettings.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QMessageBox \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qmessagebox.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QFileDialog \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qfiledialog.h \
 		ui_mainwindow.h \
-		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QListView \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QMenu \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qmenu.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QMenuBar \
@@ -1047,6 +1094,11 @@ debug\settingsdialog.obj: src\settingsdialog.cpp src\settingsdialog.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QUrlQuery \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QEventLoop \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qeventloop.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QJsonArray \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qjsonarray.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qjsonvalue.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QJsonDocument \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qjsondocument.h \
 		src\settings.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QDir \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qdir.h \
@@ -1054,6 +1106,11 @@ debug\settingsdialog.obj: src\settingsdialog.cpp src\settingsdialog.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qfile.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qfiledevice.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QFile \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QVector \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QSettings \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qsettings.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QJsonObject \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qjsonobject.h \
 		ui_settingsdialog.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QAction \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qaction.h \
@@ -1137,8 +1194,6 @@ debug\settingsdialog.obj: src\settingsdialog.cpp src\settingsdialog.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QSpacerItem \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QVBoxLayout \
 		src\leaguedirectory.h \
-		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QSettings \
-		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qsettings.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QMessageBox \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\qmessagebox.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets\QFileDialog \
@@ -1215,7 +1270,27 @@ debug\settings.obj: src\settings.cpp src\settings.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qpair.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qregexp.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qstringmatcher.h \
-		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QFile
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QFile \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QVector \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qvector.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qpoint.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QSettings \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qsettings.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qvariant.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qmap.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qdebug.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qhash.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qtextstream.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qlocale.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qset.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qcontiguouscache.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QJsonObject \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qjsonobject.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qjsonvalue.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QJsonArray \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qjsonarray.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QJsonDocument \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qjsondocument.h
 
 debug\leaguedirectory.obj: src\leaguedirectory.cpp src\leaguedirectory.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QDir \
@@ -1403,7 +1478,25 @@ debug\apicall.obj: src\apicall.cpp src\apicall.h \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QIODevice \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QUrlQuery \
 		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QEventLoop \
-		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qeventloop.h
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qeventloop.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QJsonArray \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qjsonarray.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qjsonvalue.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QJsonDocument \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qjsondocument.h \
+		src\settings.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QDir \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qdir.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qfileinfo.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qfile.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qfiledevice.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QFile \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QVector \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QSettings \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qsettings.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QJsonObject \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\qjsonobject.h \
+		..\..\..\Qt\5.2.1\msvc2012\include\QtCore\QDebug
 
 debug\moc_mainwindow.obj: debug\moc_mainwindow.cpp 
 
