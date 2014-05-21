@@ -1,7 +1,9 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
-#include <string>
+#include <QString>
+#include <QDir>
+#include <QFile>
 #include <vector>
 
 class Settings {
@@ -14,12 +16,14 @@ public:
 
   bool hasSettings();
   int getUserId();
-  std::string getUsername();
-  std::vector<std::string> getLoLDirs();
+  QString getUsername();
+  std::vector<QString> getLoLDirs();
+  QString getStateHash();
+  void setStateHash(QString hashStr);
 
 private:
 
-  Settings() {  }
+  Settings();
   Settings(Settings const&); // don't implement
   void operator=(Settings const&); // don't implement
 
@@ -28,9 +32,15 @@ private:
   bool readSettings();
   void writeSettings();
 
-  int userId;
-  std::string username;
-  std::vector<std::string> lolDirs;
+
+  // internal helper methods
+  QString settingsFile();
+
+  int _userId;
+  QString _username;
+  QString _stateHash;
+  bool _hasSettings;
+  std::vector<QString> _lolDirs;
 };
 
 #endif // SETTINGS_H

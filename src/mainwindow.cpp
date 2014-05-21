@@ -13,9 +13,13 @@ MainWindow::MainWindow(QWidget *parent) :
     // if the settings havn't been set, we need show
     // the settings dialog
     SettingsDialog dialog;
+
     dialog.setModal(true);
     dialog.exec();
   }
+}
+
+void MainWindow::showEvent(QShowEvent *) {
 }
 
 MainWindow::~MainWindow()
