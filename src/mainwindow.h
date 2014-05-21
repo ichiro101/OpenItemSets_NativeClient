@@ -14,7 +14,11 @@ class MainWindow : public QMainWindow
 public:
   explicit MainWindow(QWidget *parent = 0);
   ~MainWindow();
-  void showEvent(QShowEvent *);
+
+private slots:
+  void on_actionOpen_Settings_triggered();
+
+  void on_actionExit_triggered();
 
 private:
   Ui::MainWindow *ui;

@@ -20,10 +20,18 @@ MainWindow::MainWindow(QWidget *parent) :
   }
 }
 
-void MainWindow::showEvent(QShowEvent *) {
-}
-
 MainWindow::~MainWindow()
 {
   delete ui;
+}
+
+void MainWindow::on_actionOpen_Settings_triggered()
+{
+  SettingsDialog dialog;
+  dialog.exec();
+}
+
+void MainWindow::on_actionExit_triggered()
+{
+  QApplication::exit();
 }

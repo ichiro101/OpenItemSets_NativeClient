@@ -31,7 +31,11 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
       ui->listWidget->addItem(folder);
     }
   } else {
-    // TODO: read from Settings
+    // read data from settings
+    ui->usernameField->setText(Settings::getInstance().getUsername());
+    for (auto currentDir : Settings::getInstance().getLoLDirs()) {
+      ui->listWidget->addItem(currentDir);
+    }
   }
 
   // add and remove directory events
@@ -61,6 +65,8 @@ void SettingsDialog::accept() {
     Settings::getInstance().setLolDirs(lolDirs);
 
     if (Settings::getInstance().writeSettings()) {
+      // succesfully wrote to settings, we can now close
+      // the settings window
       QDialog::accept();
     } else {
       QMessageBox messageBox;
@@ -98,6 +104,9 @@ void SettingsDialog::reject() {
       assert(false);
       break;
     }
+  } else {
+    // do nothing if we already have Settings file
+    QDialog::reject();
   }
 }
 
