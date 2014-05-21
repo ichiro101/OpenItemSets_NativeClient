@@ -177,6 +177,7 @@ Makefile: OpenItemSets.pro ..\..\..\Qt\5.2.1\msvc2012\mkspecs\win32-msvc2012\qma
 		..\..\..\Qt\5.2.1\msvc2012\mkspecs\features\lex.prf \
 		OpenItemSets.pro \
 		F:/Dev/Qt/5.2.1/msvc2012/lib/Qt5Widgets.prl \
+		F:/Dev/Qt/5.2.1/msvc2012/lib/Qt5Network.prl \
 		F:/Dev/Qt/5.2.1/msvc2012/lib/Qt5Gui.prl \
 		F:/Dev/Qt/5.2.1/msvc2012/lib/Qt5Core.prl \
 		F:/Dev/Qt/5.2.1/msvc2012/lib/libEGLd.prl \
@@ -286,6 +287,7 @@ Makefile: OpenItemSets.pro ..\..\..\Qt\5.2.1\msvc2012\mkspecs\win32-msvc2012\qma
 ..\..\..\Qt\5.2.1\msvc2012\mkspecs\features\lex.prf:
 OpenItemSets.pro:
 F:/Dev/Qt/5.2.1/msvc2012/lib/Qt5Widgets.prl:
+F:/Dev/Qt/5.2.1/msvc2012/lib/Qt5Network.prl:
 F:/Dev/Qt/5.2.1/msvc2012/lib/Qt5Gui.prl:
 F:/Dev/Qt/5.2.1/msvc2012/lib/Qt5Core.prl:
 F:/Dev/Qt/5.2.1/msvc2012/lib/libEGLd.prl:

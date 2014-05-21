@@ -139,6 +139,38 @@ void SettingsDialog::removeDirectory() {
 }
 
 bool SettingsDialog::validateInput() {
-  // code to validate input here...
-  return false;
+  // check if the username is valid
+  QString username = ui->usernameField->text();
+  QString userId = getUserId(username);
+
+  if (userId.startsWith("error")) {
+    // the error message is contained in the return message of getUserId()
+    this->errors.push_back(userId);
+  } else {
+    qDebug() << "userId: " << userId;
+  }
+
+
+  // after we done validating, it's time to check if we have
+  // errors from the validation
+  if (this->errors.empty()) {
+
+    // no erros found, return true
+    return true;
+  } else {
+
+    // errors found, display all the errors we found to the user
+    QMessageBox messageDialog;
+    for(auto errorMessage : this->errors) {
+      messageDialog.setText(errorMessage);
+    }
+    messageDialog.setStandardButtons(QMessageBox::Ok);
+    messageDialog.setModal(true);
+    messageDialog.exec();
+
+    // clear the error messages after the error dialog has been shown
+    // so they don't get readded
+    this->errors.clear();
+    return false;
+  }
 }

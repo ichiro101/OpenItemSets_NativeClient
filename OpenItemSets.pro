@@ -7,6 +7,7 @@
 QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT += network
 
 TARGET = OpenItemSets
 TEMPLATE = app
@@ -28,12 +29,14 @@ SOURCES += src/main.cpp \
     src/mainwindow.cpp \
     src/settingsdialog.cpp \
     src/settings.cpp \
-    src/leaguedirectory.cpp
+    src/leaguedirectory.cpp \
+    src/apicall.cpp
 
 HEADERS  +=  src/mainwindow.h \
     src/settings.h \
     src/settingsdialog.h \
-    src/leaguedirectory.h
+    src/leaguedirectory.h \
+    src/apicall.h
 
 FORMS    += src/mainwindow.ui \
     src/settingsdialog.ui

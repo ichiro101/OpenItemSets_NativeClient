@@ -1,6 +1,7 @@
 #ifndef SETTINGSDIALOG_H
 #define SETTINGSDIALOG_H
 
+#include "apicall.h"
 #include "settings.h"
 #include "ui_settingsdialog.h"
 #include "leaguedirectory.h"

@@ -15,7 +15,7 @@ public:
   }
 
   bool hasSettings();
-  int getUserId();
+  QString getUserId();
   QString getUsername();
   std::vector<QString> getLoLDirs();
   QString getStateHash();
@@ -36,7 +36,7 @@ private:
   // internal helper methods
   QString settingsFile();
 
-  int _userId;
+  QString _userId;
   QString _username;
   QString _stateHash;
   bool _hasSettings;
