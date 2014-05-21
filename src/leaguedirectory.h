@@ -22,4 +22,5 @@ bool isValidLeagueDirectory(QString path);
 // for the purpose of this application
 QString processDirectory(QString path);
 
+
 #endif // LEAGUEDIRECTORY_H
