@@ -16,9 +16,9 @@ std::vector<QString> scanInstallations() {
 std::vector<QString> scanWindowsInstallations() {
   std::vector <QString> s;
 
-  QString riotKey = "HKEY_CURRENT_USER\\Software\\Riot Games\\RADS";
+  QString riotKey = "HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Riot Games\\League of Legends";
   QSettings settings(riotKey, QSettings::NativeFormat);
-  QString folder = settings.value("LocalRootFolder").toString();
+  QString folder = settings.value("Path").toString();
 
   if (folder != "") {
     if (isValidLeagueDirectory(folder)) {
