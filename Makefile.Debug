@@ -11,12 +11,12 @@ MAKEFILE      = Makefile.Debug
 
 CC            = cl
 CXX           = cl
-DEFINES       = -DUNICODE -DWIN32 -DVERSION_MAJOR=0 -DVERSION_MINOR=0 -DVERSION_BUILD=1 -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE
+DEFINES       = -DUNICODE -DWIN32 -DVERSION_MAJOR=0 -DVERSION_MINOR=0 -DVERSION_BUILD=2 -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE
 CFLAGS        = -nologo -Zm200 -Zc:wchar_t -Zi -MDd -W3 /Fddebug\OpenItemSets0.pdb $(DEFINES)
 CXXFLAGS      = -nologo -Zm200 -Zc:wchar_t -Zi -MDd -GR -W3 -w34100 -w34189 -EHsc /Fddebug\OpenItemSets0.pdb $(DEFINES)
 INCPATH       = -I"..\..\..\Qt\5.2.1\msvc2012\include" -I"..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets" -I"..\..\..\Qt\5.2.1\msvc2012\include\QtNetwork" -I"..\..\..\Qt\5.2.1\msvc2012\include\QtGui" -I"..\..\..\Qt\5.2.1\msvc2012\include\QtANGLE" -I"..\..\..\Qt\5.2.1\msvc2012\include\QtCore" -I"debug" -I"." -I"..\..\..\Qt\5.2.1\msvc2012\mkspecs\win32-msvc2012"
 LINKER        = link
-LFLAGS        = /NOLOGO /DYNAMICBASE /NXCOMPAT /DEBUG /SUBSYSTEM:WINDOWS "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" /VERSION:0.01
+LFLAGS        = /NOLOGO /DYNAMICBASE /NXCOMPAT /DEBUG /SUBSYSTEM:WINDOWS "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" /VERSION:0.02
 LIBS          = qtmaind.lib /LIBPATH:F:\Dev\Qt\5.2.1\msvc2012\lib F:\Dev\Qt\5.2.1\msvc2012\lib\Qt5Widgetsd.lib F:\Dev\Qt\5.2.1\msvc2012\lib\Qt5Networkd.lib F:\Dev\Qt\5.2.1\msvc2012\lib\Qt5Guid.lib F:\Dev\Qt\5.2.1\msvc2012\lib\Qt5Cored.lib libEGLd.lib libGLESv2d.lib gdi32.lib user32.lib debug\OpenItemSets_resource.res 
 QMAKE         = F:\Dev\Qt\5.2.1\msvc2012\bin\qmake.exe
 IDC           = idc
@@ -69,26 +69,6 @@ DESTDIR_TARGET = debug\OpenItemSets.exe
 
 .SUFFIXES: .c .cpp .cc .cxx
 
-{debug}.cpp{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{debug}.cc{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{debug}.cxx{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{debug}.c{debug\}.obj::
-	$(CC) -c $(CFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
 {.}.cpp{debug\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
 	$<
@@ -105,6 +85,26 @@ DESTDIR_TARGET = debug\OpenItemSets.exe
 <<
 
 {.}.c{debug\}.obj::
+	$(CC) -c $(CFLAGS) $(INCPATH) -Fodebug\ @<<
+	$<
+<<
+
+{debug}.cpp{debug\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
+	$<
+<<
+
+{debug}.cc{debug\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
+	$<
+<<
+
+{debug}.cxx{debug\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
+	$<
+<<
+
+{debug}.c{debug\}.obj::
 	$(CC) -c $(CFLAGS) $(INCPATH) -Fodebug\ @<<
 	$<
 <<

@@ -11,12 +11,12 @@ MAKEFILE      = Makefile.Release
 
 CC            = cl
 CXX           = cl
-DEFINES       = -DUNICODE -DWIN32 -DVERSION_MAJOR=0 -DVERSION_MINOR=0 -DVERSION_BUILD=1 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG
+DEFINES       = -DUNICODE -DWIN32 -DVERSION_MAJOR=0 -DVERSION_MINOR=0 -DVERSION_BUILD=2 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG
 CFLAGS        = -nologo -Zm200 -Zc:wchar_t -O2 -MD -W3 $(DEFINES)
 CXXFLAGS      = -nologo -Zm200 -Zc:wchar_t -O2 -MD -GR -W3 -w34100 -w34189 -EHsc $(DEFINES)
 INCPATH       = -I"..\..\..\Qt\5.2.1\msvc2012\include" -I"..\..\..\Qt\5.2.1\msvc2012\include\QtWidgets" -I"..\..\..\Qt\5.2.1\msvc2012\include\QtNetwork" -I"..\..\..\Qt\5.2.1\msvc2012\include\QtGui" -I"..\..\..\Qt\5.2.1\msvc2012\include\QtANGLE" -I"..\..\..\Qt\5.2.1\msvc2012\include\QtCore" -I"release" -I"." -I"..\..\..\Qt\5.2.1\msvc2012\mkspecs\win32-msvc2012"
 LINKER        = link
-LFLAGS        = /NOLOGO /DYNAMICBASE /NXCOMPAT /INCREMENTAL:NO /SUBSYSTEM:WINDOWS "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" /VERSION:0.01
+LFLAGS        = /NOLOGO /DYNAMICBASE /NXCOMPAT /INCREMENTAL:NO /SUBSYSTEM:WINDOWS "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" /VERSION:0.02
 LIBS          = qtmain.lib /LIBPATH:F:\Dev\Qt\5.2.1\msvc2012\lib F:\Dev\Qt\5.2.1\msvc2012\lib\Qt5Widgets.lib F:\Dev\Qt\5.2.1\msvc2012\lib\Qt5Network.lib F:\Dev\Qt\5.2.1\msvc2012\lib\Qt5Gui.lib F:\Dev\Qt\5.2.1\msvc2012\lib\Qt5Core.lib libEGL.lib libGLESv2.lib gdi32.lib user32.lib release\OpenItemSets_resource.res 
 QMAKE         = F:\Dev\Qt\5.2.1\msvc2012\bin\qmake.exe
 IDC           = idc
