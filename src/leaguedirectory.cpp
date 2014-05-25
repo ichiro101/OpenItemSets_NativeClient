@@ -34,13 +34,9 @@ bool isValidLeagueDirectory(QString path) {
   path = processDirectory(path);
   QDir dirToLeague(path);
 
-  // check if config/champions is there
+  // check if config directory is there
   if (dirToLeague.cd("Config")) {
-    if (dirToLeague.cd("Champions")) {
-      return true;
-    } else {
-      return false;
-    }
+    return true;
   } else {
     return false;
   }
